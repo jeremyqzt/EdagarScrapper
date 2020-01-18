@@ -22,11 +22,12 @@ class EdgarDownloader():
         pass
 
     def _createCIKTickerMap(self):
+        dest = "EdagarData"
         for i in self.tickerCIK.tickerCIKGenerator():
             #Methods to download other filings!
             testTuple = i + ("test", "", "" , "", "")
             pair = CIKTickerPair(i)
-            manifest = manifestDownloader(pair)
+            manifest = filingManifest(pair, supportedFilings.tenQ, dest).retrieveManifest()
             print(testTuple)
             self.db.insertCompany(testTuple)
 

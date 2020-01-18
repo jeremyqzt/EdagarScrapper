@@ -4,7 +4,7 @@ class CIKTickerInitializer():
     def __init__(self):
         self.url = "https://www.sec.gov/include/ticker.txt"
         self.name = "ticker.txt"
-        self.pairing = urlretrieve(self.url, self.name)
+        urlretrieve(self.url, self.name)
         self._readFile()
 
     def __exit(self):
