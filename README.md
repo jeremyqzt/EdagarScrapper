@@ -16,4 +16,11 @@ from the following URL. the CIK field seems to take both tickers and CIKs.
 
 https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAPL&type=10-Q&dateb=&owner=exclude&count=40&output=atom
 
+You might then get something like:
+https://www.sec.gov/Archives/edgar/data/320193/000032019319000076/0000320193-19-000076-index.htm
+or
+https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=320193&amp;accession_number=0000320193-19-000076&amp;xbrl_type=v
+
+But Im not currently sure how to get the source XBRL...
+
 Currently (10% Done)

@@ -1,5 +1,14 @@
 from dbUtils.dbTable import *
-from CIKTickerPair import *
+from downloaderUtils.CIKTickerPair import *
+from downloaderUtils.ManifestDownloader import *
+
+
+class CIKTickerPair:
+    def __init__(self, dbTuple):
+        self.ticker = dbTuple[0]
+        self.cik = dbTuple[1]
+
+
 class EdgarDownloader():
     def __init__(self):
         self.tickerCIK = CIKTickerInitializer()
@@ -16,6 +25,8 @@ class EdgarDownloader():
         for i in self.tickerCIK.tickerCIKGenerator():
             #Methods to download other filings!
             testTuple = i + ("test", "", "" , "", "")
+            pair = CIKTickerPair(i)
+            manifest = manifestDownloader(pair)
             print(testTuple)
             self.db.insertCompany(testTuple)
 

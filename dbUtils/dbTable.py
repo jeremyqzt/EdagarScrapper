@@ -71,11 +71,3 @@ class dbSecCikFilings():
         pass
 
 
-class CIKTickerPair:
-    '''Class for keeping track of an ticker CIK pair, maybe not needed.'''
-    def __init__(self, ticker, cik):
-        self.ticker = ticker
-        self.cik = cik
-
-
-
