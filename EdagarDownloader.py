@@ -1,6 +1,6 @@
 from dbUtils.dbTable import *
 from downloaderUtils.CIKTickerPair import *
-from downloaderUtils.ManifestDownloader import *
+from downloaderUtils.FilingsManifest import *
 
 
 class CIKTickerPair:
