@@ -11,7 +11,7 @@ class CIKTickerInitializer():
         self.f.close()
 
     def _readFile(self):
-        self.f = open(self.name, "r")
+        self.f = open(self.name, "r", encoding='utf-8-sig')
 
     def tickerCIKGenerator(self):
         for line in self.f:

@@ -26,9 +26,10 @@ class EdgarDownloader():
         for i in self.tickerCIK.tickerCIKGenerator():
             #Methods to download other filings!
             testTuple = i + ("test", "", "" , "", "")
+            #print(testTuple)
             pair = CIKTickerPair(i)
             manifest = filingManifest(pair, supportedFilings.tenQ, dest).retrieveManifest()
-            print(testTuple)
+
             self.db.insertCompany(testTuple)
 
 test = EdgarDownloader()

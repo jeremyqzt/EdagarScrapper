@@ -1,5 +1,6 @@
 import os
 import enum
+import re
 
 import xml.etree.ElementTree as ET
 from urllib.request import urlretrieve
@@ -20,7 +21,7 @@ class filingManifest():
         self.originPair = cikTickerPair
         self.fileType = fileType
         self.dirPrefix = dirPrefix
-        self.url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=%s&type=10-Q&dateb=&owner=exclude&count=40&output=atom" %(self.originPair.ticker)
+        self.url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=%s&type=10-Q&dateb=&owner=exclude&count=40&output=atom" %(self.originPair.cik)
         self.dirName = "%s\%s\%s" %(self.dirPrefix, self.originPair.ticker, str(self.fileType))
         self.name = "%s\%s" %(self.dirName, "manifest.xml")
 
@@ -32,7 +33,10 @@ class filingManifest():
 
     def retrieveManifest(self):
         self._prepareDir()
-        urlretrieve(self.url, self.name)
+        try:
+            urlretrieve(self.url, self.name)
+        except:
+            pass
         self._readManifest()
 
     def _readManifest(self):
@@ -40,6 +44,19 @@ class filingManifest():
         self.manifestXML = ET.parse(self.name).getroot()
         self.companyInfo = self.manifestXML.findall("./ns:company-info", ns)[0]
         self.cik = self.companyInfo.findall("./ns:cik", ns)[0].text
+        self.name = self.companyInfo.findall("./ns:conformed-name", ns)[0].text
+
+        self.addresses = self.companyInfo.findall("./ns:addresses/ns:address", ns)
+        self.address = []
+        for i in self.addresses:
+            typeAddress = i.attrib
+            address = typeAddress
+            for t in i:
+                prefix, has_namespace, postfix = t.tag.partition('}')
+                address[postfix] = t.text
+            self.address.append(address)
+
+        print(self.address)
 
 
 
